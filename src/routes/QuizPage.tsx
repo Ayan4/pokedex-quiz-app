@@ -6,7 +6,7 @@ import { getSingleQuiz } from "../API/quizData";
 import Navbar from "../components/Navbar";
 import { BiCrown } from "react-icons/bi";
 import { AiFillStar } from "react-icons/ai";
-import pokeLogo from "../assets/poke-logo.png";
+import Loading from "../components/Loading";
 
 function QuizPage() {
   const { quizId } = useParams();
@@ -73,15 +73,7 @@ function QuizPage() {
     }, 1000);
   };
 
-  if (loading)
-    return (
-      <div className="flex flex-col justify-center items-center h-screen">
-        <div className="animate-bounce">
-          <img className="w-16 animate-spin" src={pokeLogo} alt="loading" />
-        </div>
-        <div className="px-12 filter blur-sm opacity-70 pt-0.5 bg-black"></div>
-      </div>
-    );
+  if (loading) return <Loading />;
 
   return (
     <div className="max-w-3xl font-poppins m-auto md:mt-28">

@@ -3,6 +3,7 @@ import { useQuiz } from "../context/quizContext";
 import { Link } from "react-router-dom";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
 import Navbar from "../components/Navbar";
+import Loading from "../components/Loading";
 
 function SelectQuiz() {
   const { state, loading, dispatch } = useQuiz();
@@ -11,7 +12,7 @@ function SelectQuiz() {
     dispatch({ type: "RESET" });
   }, [dispatch]);
 
-  if (loading) return <h1>Loading....</h1>;
+  if (loading) return <Loading />;
 
   return (
     <div className="flex flex-col h-screen items-center font-poppins relative md:flex-row">

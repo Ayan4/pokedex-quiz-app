@@ -3,8 +3,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      poppins: "'Poppins', sans-serif",
-      mosaic: "'Palette Mosaic', cursive"
+      poppins: "'Poppins', sans-serif"
     },
     boxShadow: {
       box: "0px 2px 7px rgba(0, 0, 0, 0.13)",
