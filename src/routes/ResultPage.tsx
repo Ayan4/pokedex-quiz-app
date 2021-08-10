@@ -27,7 +27,7 @@ function ResultPage() {
         <div className="flex flex-col items-center">
           <GiStarsStack className="text-7xl text-yellow-500" />
           <h2 className="text-center mt-3 text-lg font-medium text-gray-800">
-            {score}/25 Points
+            {score}/50 Points
           </h2>
         </div>
 
