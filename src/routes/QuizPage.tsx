@@ -3,6 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useQuiz } from "../context/quizContext";
 import { Question, Option } from "../API/quizTypes";
 import { getSingleQuiz } from "../API/quizData";
+import Navbar from "../components/Navbar";
+import { BiCrown } from "react-icons/bi";
+import { AiFillStar } from "react-icons/ai";
+import pokeLogo from "../assets/poke-logo.png";
 
 function QuizPage() {
   const { quizId } = useParams();
@@ -69,41 +73,66 @@ function QuizPage() {
     }, 1000);
   };
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading)
+    return (
+      <div className="flex flex-col justify-center items-center h-screen">
+        <div className="animate-bounce">
+          <img className="w-16 animate-spin" src={pokeLogo} alt="loading" />
+        </div>
+        <div className="px-12 filter blur-sm opacity-70 pt-0.5 bg-black"></div>
+      </div>
+    );
 
   return (
-    <div>
-      <div>
-        <div className="flex p-3 m-5">
-          <p className="mr-8">
-            Question No : {questionNo + 1}/{currentQuiz?.questions.length}
-          </p>
+    <div className="max-w-3xl font-poppins m-auto md:mt-28">
+      <Navbar home={false} />
+      <div className="flex justify-between items-center px-5 my-6">
+        <div className="flex items-center px-2 py-0.5 rounded-xl shadow-box">
+          {currentQuiz?.questions.map((item, index) => (
+            <div
+              key={item.id}
+              className={`w-7 h-1.5 mx-0.5 bg-gray-200 rounded-full ${index ===
+                questionNo && "bg-yellow-400"} ${item.clickedOption &&
+                "bg-yellow-400"}`}
+            ></div>
+          ))}
+          <div className="flex items-center ml-2 text-lg">
+            <BiCrown className="text-yellow-500 mr-1.5" />
+            <p className="text-base font-medium text-gray-700">
+              {questionNo + 1}
+              <span className="text-sm font-light">/</span>
+              {currentQuiz?.questions.length}
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center border px-1.5 py-0.5 rounded-xl shadow-box">
+          <AiFillStar className="text-lg text-yellow-500 mr-1" />
+          <p>{score}</p>
+        </div>
+      </div>
 
-          <p className="mr-8">Score: {score}</p>
-        </div>
+      <p className="text-2xl mt-14 mb-8 text-gray-700 px-5">
+        {currentQuestion && currentQuestion.question}
+      </p>
 
-        <div className="m-8 border p-3 max-w-sm">
-          <h3>{currentQuestion && currentQuestion.question}</h3>
-        </div>
-        <div className="max-w-sm m-8 flex flex-col">
-          {currentQuestion &&
-            currentQuestion.options.map(item => (
-              <button
-                disabled={disableClick}
-                key={item.id}
-                onClick={() => handleCheckAnswer(item.id)}
-                className={`p-2 my-2 ${
-                  clickedAnswerId && item.isAnswer
-                    ? "bg-green-400"
-                    : "bg-gray-200"
-                } ${clickedAnswerId === item.id &&
-                  !item.isAnswer &&
-                  "bg-red-400"}`}
-              >
-                {item.content}
-              </button>
-            ))}
-        </div>
+      <div className="px-5 flex flex-col text-gray-600">
+        {currentQuestion &&
+          currentQuestion.options.map(item => (
+            <button
+              disabled={disableClick}
+              key={item.id}
+              onClick={() => handleCheckAnswer(item.id)}
+              className={`py-7 px-4 rounded-xl transition-all shadow-boxStrong border text-xl my-2.5 ${
+                clickedAnswerId && item.isAnswer
+                  ? "bg-green-400 text-gray-800"
+                  : "bg-white"
+              } ${clickedAnswerId === item.id &&
+                !item.isAnswer &&
+                "bg-red-400 text-gray-800"}`}
+            >
+              {item.content}
+            </button>
+          ))}
       </div>
     </div>
   );
