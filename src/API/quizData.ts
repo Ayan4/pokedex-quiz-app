@@ -3,7 +3,7 @@ import { Quiz, ServerError } from "./quizTypes";
 
 export const getQuiz = async () => {
   try {
-    const response = await axios.get("https://quiz-app.ayanshukla.repl.co");
+    const response = await axios.get("https://pokedex-quiz.herokuapp.com");
     return response.data.quizData;
   } catch (err) {
     console.log(err);
@@ -14,7 +14,7 @@ export const getQuiz = async () => {
 export const getSingleQuiz = async (quizId): Promise<Quiz | ServerError> => {
   try {
     const response = await axios.get(
-      `https://quiz-app.ayanshukla.repl.co/quiz/${quizId}`
+      `https://pokedex-quiz.herokuapp.com/quiz/${quizId}`
     );
     return response.data.quiz;
   } catch (err) {
